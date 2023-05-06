@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import cheerio, { CheerioAPI } from 'cheerio';
+import { CheerioAPI, load } from 'cheerio';
 import { Team } from './entities/team.entity';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class RankingService {
     const url = `${this.config.get('BASE_URL')}/${this.config.get('RANKING')}`;
 
     const body = await (await fetch(url)).text();
-    const $ = cheerio.load(body);
+    const $ = load(body);
     const results = this.bodyParser($);
 
     return results;
