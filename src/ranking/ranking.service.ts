@@ -9,10 +9,9 @@ export class RankingService {
 
   /**
    * TODO:
-   * add return type
    * implement player array and lineUp attribute to response
    */
-  async findAll() {
+  async findAll(): Promise<Team[]> {
     const url = `${this.config.get('BASE_URL')}/${this.config.get('RANKING')}`;
 
     const body = await (await fetch(url)).text();
