@@ -6,6 +6,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 @Controller('ranking')
 export class RankingController {
   @Get()
+  //@ApiPaginatedResponse(CatDto)
+  //findAll(): Observable<{ total: number, limit: number, offset: number, results: CatDto[] }>
   findAll() {
     return 'Ranking';
   }
