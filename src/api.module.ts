@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
-import { RankingController } from './ranking/ranking.controller';
 import { RankingModule } from './ranking/ranking.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [RankingModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    RankingModule,
+  ],
 })
 export class ApiModule {}
