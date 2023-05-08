@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CheerioAPI, load } from 'cheerio';
-import { Team } from './entities/team.entity';
+import { Player, Team } from './entities/team.entity';
 
 @Injectable()
 export class RankingService {
@@ -22,7 +22,7 @@ export class RankingService {
   }
 
   private bodyParser($: CheerioAPI): Team[] {
-    const content = $('.ranking-wrapper');
+    const content = $('.ranking-container');
     const teams: Team[] = [];
 
     content.map((index, element) => {
@@ -40,11 +40,26 @@ export class RankingService {
       const name = teamInfo.text();
       const rankingChange = $(element).find('.ranking-change').text();
 
+      /**
+       * TODO: nationality is obtained by title attribute from player flag img,
+       * some players doesnt have title attr defined
+       * suggestion: get by flag url name
+       */
+      const lineUpContent = $(element).find('.lineup-player-nickname');
+      const lineUp: Player[] = [];
+      lineUpContent.each((index, element) => {
+        lineUp.push({
+          nickname: $(element).text(),
+          nationality: $(element).find('.flag').attr('title'),
+        });
+      });
+
       teams.push({
         ranking: ranking,
         name: name,
         points: points,
         rankingChange: rankingChange,
+        lineUp: lineUp,
       });
     });
 

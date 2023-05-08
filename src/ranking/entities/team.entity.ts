@@ -3,11 +3,10 @@ export class Team {
   name: string;
   points: number;
   rankingChange: string;
-  //   lineUp: Player[];
+  lineUp: Player[];
 }
 
-type Player = {
-  name: string;
+export class Player {
   nickname: string;
-  nationality: string;
+  nationality?: string;
 };
