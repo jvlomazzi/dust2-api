@@ -45,7 +45,7 @@ export class RankingService {
       const lineUp: Player[] = [];
       lineUpContent.each((index, element) => {
         lineUp.push({
-          nickname: $(element).text(),
+          nickname: $(element).text().trimStart(),
           nationality: $(element).find('.flag').attr('title'),
         });
       });
