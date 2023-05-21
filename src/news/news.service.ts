@@ -11,7 +11,9 @@ export class NewsService {
   )}/?offset=0`;
 
   constructor(private config: ConfigService) {}
-
+  /**
+   * TODO: create pagination so the function can search multiple offsets
+   */
   async findAll(): Promise<News[]> {
     const body = await (await fetch(this.url)).text();
     const $ = load(body);
@@ -20,8 +22,13 @@ export class NewsService {
     return results;
   }
 
+  /**
+   * TODO: implement this method
+   */
   async findByDate() {}
-
+  /**
+   * TODO: implement this method
+   */
   async findByPage() {}
 
   private bodyParser($: CheerioAPI): News[] {
