@@ -2,7 +2,7 @@
   "name": "dust2-api",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "João Matos <jvlomazzi>",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

@@ -7,10 +7,6 @@ import { Player, Team } from './entities/team.entity';
 export class RankingService {
   constructor(private config: ConfigService) {}
 
-  /**
-   * TODO:
-   * implement player array and lineUp attribute to response
-   */
   async findAll(): Promise<Team[]> {
     const url = `${this.config.get('BASE_URL')}/${this.config.get('RANKING')}`;
 
@@ -49,7 +45,7 @@ export class RankingService {
       const lineUp: Player[] = [];
       lineUpContent.each((index, element) => {
         lineUp.push({
-          nickname: $(element).text(),
+          nickname: $(element).text().trimStart(),
           nationality: $(element).find('.flag').attr('title'),
         });
       });
