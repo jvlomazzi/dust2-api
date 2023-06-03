@@ -22,6 +22,13 @@ export class NewsService {
     return results;
   }
 
+  async findById(id: number): Promise<News[]> {
+    const body = await (await fetch(this.url)).text();
+    const $ = load(body);
+    const results = this.bodyParser($);
+
+    return results;
+  }
   /**
    * TODO: implement this method
    */
@@ -44,8 +51,10 @@ export class NewsService {
       const totalComments: number = Number(
         $(element).find('.news-item-comments').text().replace(/\D/g, ''),
       );
+      const id: number = this.extractIdFromUrl(url);
 
       news.push({
+        id,
         title,
         date,
         url,
@@ -54,5 +63,11 @@ export class NewsService {
     });
 
     return news;
+  }
+
+  private extractIdFromUrl(url: string): number {
+    const regex = /^\/noticias\/(\d+)\/.*/;
+    const matches = url.match(regex);
+    return parseInt(matches[1], 10);
   }
 }
